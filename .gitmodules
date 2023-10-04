@@ -1,3 +1,6 @@
 [submodule "uboot"]
 	path = u-boot
 	url = https://sgit.trust.informatik.tu-darmstadt.de:13196/sanctuary/peregrine/uboot.git
+[submodule "trusted-firmware-a"]
+	path = trusted-firmware-a
+	url = https://sgit.trust.informatik.tu-darmstadt.de:13196/sanctuary/peregrine/trusted-firmware-a.git
