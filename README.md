@@ -1,5 +1,12 @@
 # Peregrine
-
+This project will contain (submodules marked with [S])
+- build -> folder containing scripts to build minimal FVP runnable
+- peregrine [S] -> peregrine hypervisor repo
+- trusted-firmware-a [S] -> TF-A (check if modifications needed)
+- u-boot [S]
+- tools [S]
+- toolchains [S] -> merge with above?
+- linux [S] -> upstream repo to build VM || we can also provide a Linux VM?
 
 
 ## Getting started
