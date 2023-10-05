@@ -1,0 +1,3 @@
+load hostfs - 0x80a00000 ../../u-boot/cot_peregrine/peregrine.fit
+load hostfs - 0x81000000 ../../out/vms.img
+bootm 0x80a00000

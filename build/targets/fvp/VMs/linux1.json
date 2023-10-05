@@ -1,0 +1,45 @@
+{
+  "vm": {
+    "uuid": "ff336ad7-f2d4-4f56-a700-65b906dbf3ba",
+    "name": "Linux VM 1",
+    "kernel_path": "$(ROOT)/linux/arch/arm64/boot/Image",
+    "kernel_version": 1,
+    "ramdisk_path": "$(ROOT)/out-br/images/rootfs.cpio.gz",
+    "ramdisk_version": 1,
+    "fdt_path": "$(ROOT)/build/targets/fvp/vm-dts/primary_vm_fdt.dts",
+    "fdt_version": 1,
+    "build_env": "BR2_ROOTFS_OVERLAY=\"$(ROOT)/build/br-ext/fvp-overlay/\"",
+    "build_command" : "make -f $(ROOT)/build/vm.mk linux-vm -j6",
+    "is_enabled": true,
+    "is_primary": true,
+    "enable_xtest": true,
+    "vcpu_count": 2,
+    "cpus": [ "0x0", "0x100" ],
+    "requires_identity_mapping": false,
+    "memory_size": "0x20000000",
+    "use_disk_encryption": true,
+    "ipa_memory_layout": {
+      "gic": "0x2f000000",
+      "kernel": "0x80000000",
+      "fdt": "0x84000000",
+      "ramdisk": "0x85000000"
+    },
+    "device_regions": {
+      "uart2": {
+        "description": "UART2 PL011",
+        "base-address": "0x00000000 0x1C0B0000",
+        "pages-count": 16,
+        "attributes": "0x3", 
+        "interrupts": "39 0x0"
+      },
+      "net": {
+        "description": "SMSC 91C111",
+        "base-address": "0x00000000 0x1A000000",
+        "pages-count": 16,
+        "attributes": "0x3",
+        "interrupts": "47 0x0"
+      }
+    }
+  }
+}
+

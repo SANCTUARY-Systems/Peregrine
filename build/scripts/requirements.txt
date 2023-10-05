@@ -1,0 +1,4 @@
+dataclasses
+jsonpickle
+fdt
+pycryptodome

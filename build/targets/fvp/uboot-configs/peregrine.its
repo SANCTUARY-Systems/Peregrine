@@ -1,0 +1,53 @@
+/*
+ * U-Boot uImage source file for Peregrine
+ */
+
+/dts-v1/;
+
+/ {
+	description = "Peregrine Image for U-Boot";
+	#address-cells = <1>;
+
+	images {
+		peregrine {
+			description = "Peregrine Binary";
+			data = /incbin/("../../out/peregrine.bin");
+			type = "kernel";
+			arch = "arm64";
+			os = "linux";
+			compression = "none";
+			load = <peregrine>;
+			entry = <peregrine>;
+			hash-1 {
+				algo = "sha1";
+			};
+		};
+	
+		fdt-1 {
+			description = "fvp-base-gicv3-psci tree blob";
+			data = /incbin/("../../out/peregrine_fdt.dtb");
+			type = "flat_dt";
+			arch = "arm64";
+			compression = "none";
+			load = <fdt>;
+			hash-1 {
+				algo = "sha1";
+			};
+		};
+	};
+
+	configurations {
+		default = "config-1";		
+		config-1 {
+			description = "Boot Peregrine";
+			kernel = "peregrine";
+			fdt = "fdt-1"; 
+			signature {
+				algo = "sha1,rsa2048";
+				key-name-hint = "peregrine";
+				sign-images = "fdt", "kernel";
+			};
+		};
+	};
+};
+

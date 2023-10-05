@@ -1,0 +1,28 @@
+{
+  "vm": {
+    "uuid": "76545ad2-4dc8-4c15-82a2-8f52882ea407",
+    "name": "Baremetal",
+    "kernel_path": "$(ROOT)/VMs/baremetal-helloworld/test.bin",
+    "kernel_version": 1,
+    "is_enabled": false, 
+    "is_primary": false,
+    "vcpu_count": 1,
+    "allow_sw_communication": false,
+    "use_disk_encryption": false,
+    "memory_size": "0x8000000",
+    "ipa_memory_layout": {
+      "kernel": "0x80000000"
+    },
+    "build_command": "$(ROOT)/VMs/baremetal-helloworld/make.sh",
+    "device_regions": {
+      "uart2": {
+        "description": "UART2 PL011",
+        "base-address": "0x00000000 0x1C0B0000",
+        "pages-count": 16,
+        "attributes": "0x3", 
+        "interrupts": "40 0x0"
+      }
+    }
+  }
+}
+

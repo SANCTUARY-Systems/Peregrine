@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# set static IP & default gateway
+# assuming you didn't change default br0 IP on host
+ip link set dev eth0 down
+ip addr add 192.168.1.2/24 dev eth0
+ip link set dev eth0 up
+ip route add default via 192.168.1.1 dev eth0
+
+# add Google DNS as nameserver
+echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
+

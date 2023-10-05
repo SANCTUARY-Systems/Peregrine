@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -x
+
+cat /proc/cmdline | sed -e 's/^.*passphrase=//' -e 's/ .*$//' | cryptsetup open /dev/vda1 persist
+mount -o loop /dev/mapper/persist /mnt

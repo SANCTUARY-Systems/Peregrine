@@ -1,0 +1,7 @@
+/dts-v1/;
+
+/ {
+	model = "Keys";
+	compatible = "Vexpress64 Base FVP";
+
+};

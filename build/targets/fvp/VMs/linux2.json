@@ -1,0 +1,39 @@
+{
+  "vm": {
+    "uuid": "e29b9fe7-cd0e-40bf-a07b-bc119871cfe3",
+    "name": "Linux VM 2",
+    "kernel_path": "$(ROOT)/linux/arch/arm64/boot/Image",
+    "kernel_version": 1,
+    "ramdisk_path": "$(ROOT)/out-br/images/rootfs.cpio.gz",
+    "ramdisk_version": 1,
+    "fdt_path": "$(ROOT)/build/targets/fvp/vm-dts/secondary_vm_fdt.dts",
+    "fdt_version": 1,
+    "build_env": "BR2_ROOTFS_OVERLAY=\"$(ROOT)/build/br-ext/fvp-overlay/\"",
+    "is_enabled": true, 
+    "is_primary": false,
+    "vcpu_count": 2,
+    "cpus": [ "0x200", "0x300" ],
+    "allow_sw_communication": true,
+    "security_services": ["7011a688-ddde-4053-a5a9-7b3c4ddf13b8",
+			  "8aaaf200-2450-11e4-abe2-0002a5d5c51b",
+			  "af66c5ab-19dc-42f2-bec3-e99b33f3cd52",
+			  "bc50d971-d4c9-42c4-82cb-343fb7f37896"],
+    "memory_size": "0x20000000",
+    "use_disk_encryption": true,
+    "ipa_memory_layout": {
+      "gic": "0x2f000000",
+      "kernel": "0x80000000",
+      "fdt": "0x84000000",
+      "ramdisk": "0x85000000"
+    },
+    "device_regions": {
+      "uart3": {
+        "description": "UART3 PL011",
+        "base-address": "0x00000000 0x1C0C0000",
+        "pages-count": 1,
+        "attributes": "0x3",
+        "interrupts": "40 0x0"
+      }
+    }
+  }
+}

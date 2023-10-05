@@ -1,0 +1,26 @@
+{
+    "platform": {
+        "uuid" : "10e6c722-e384-4603-8a4a-f55477eafaff",
+        "version" : 1,
+        "measured_boot": true,
+        "build_options": {
+            "debug_hypervisor": false,
+            "hypervisor_log_level": "LOG_LEVEL_DEBUG",
+            "debug_tfa": false,
+            "debug_kernel": false, 
+            "out_dir": "$(ROOT)/out/", 
+            "target_dir": "$(ROOT)/build/targets/fvp",       
+            "u_boot_device_tree_file": "fvp-base-revc.dts",
+            "docker_support": false
+        },
+        "memory_layout": {
+            "UBOOT_KERNEL_START_ADDR" : "0x80300000",
+            "UBOOT_CMD_START_ADDR" : "0x80900000",
+            "UBOOT_FIT_START_ADDR" : "0x80A00000",
+            "PEREGRINE_KERNEL_START_ADDR" : "0x80B00000",
+            "PEREGRINE_FDT_START_ADDR" : "0x80C00000",
+            "VMS_START_ADDR" : "0x81000000"
+        }
+        
+    }
+}
