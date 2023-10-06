@@ -3,7 +3,7 @@ ROOT ?= $(shell pwd)/..
 MAKEFLAGS 				+= -j12
 BUILD_SCRIPTS 			?= $(ROOT)/build/scripts
 TF_A_PATH				?= $(ROOT)/trusted-firmware-a
-TOOLCHAIN_PATH  		?= $(ROOT)/toolchains
+TOOLCHAIN_PATH  		?= $(ROOT)/toolchain
 CLANG_PATH				?= $(ROOT)/peregrine/prebuilts/linux-x64/clang/bin/clang
 
 AARCH64_CROSS_COMPILE	?= aarch64-linux-gnu-
@@ -101,8 +101,6 @@ clean-partial:
 clean-partial-internal: arm-tf-clean boot-img-clean  \
 	hypervisor-clean uboot-clean out-clean
 
-include toolchain.mk
-
 
 ################################################################################
 # ARM Trusted Firmware
@@ -189,7 +187,7 @@ uboot-clean:
 
 fvp-download:
 	@echo 'INFO: Downloading FVP.'
-	wget -O $(TOOLCHAIN_PATH)/fvp.tgz https://developer.arm.com/-/media/Files/downloads/ecosystem-models/FVP_Base_RevC-2xAEMvA_11.23_9_Linux64.tgz?rev=9de951d16ad74096ad78e4be80df5114&hash=93BEA9D29D5360330D13FFF574CD6804
+	wget -O $(TOOLCHAIN_PATH)/fvp.tgz https://developer.arm.com/-/media/Files/downloads/ecosystem-models/FVP_Base_RevC-2xAEMvA_11.23_9_Linux64.tgz
 	@cd $(TOOLCHAIN_PATH); \
 	tar -xf fvp.tgz Base_RevC_AEMvA_pkg
 	rm $(TOOLCHAIN_PATH)/fvp.tgz
