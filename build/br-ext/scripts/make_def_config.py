@@ -15,8 +15,6 @@ def get_args():
                         help='Path to buildroot out directory')
     parser.add_argument('--top-dir', required=True,
                         help='Replaces %TOP_DIR% in defconfig files')
-    parser.add_argument('--br-ext-optee', required=True,
-                        help='Path the OP-TEE external buildroot tree')
     parser.add_argument('--br-ext-additional', required=False, action='append',
                         help='Additional external tree(s)')
     parser.add_argument('--br-defconfig', required=True, action='append',
@@ -46,16 +44,7 @@ def main():
     else:
         out = '../' + args.out
 
-    if os.path.isabs(args.br_ext_optee):
-        br_ext_optee = args.br_ext_optee
-    else:
-        br_ext_optee = '../' + args.br_ext_optee
-
-    if args.br_ext_additional:
-        br_ext_optee += ':' + ':'.join(args.br_ext_additional)
-
-    os.execlp(args.make_cmd, args.make_cmd, '-C', args.br, 'O=' + out,
-              'BR2_EXTERNAL=' + br_ext_optee,
+    os.execlp(args.make_cmd, args.make_cmd, '-C', args.br, 'O=' + out, 
               'BR2_DEFCONFIG=' + out + '/defconfig', 'defconfig')
 
 if __name__ == "__main__":

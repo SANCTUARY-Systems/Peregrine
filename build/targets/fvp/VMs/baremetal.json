@@ -5,8 +5,8 @@
     "kernel_path": "$(ROOT)/VMs/baremetal-helloworld/test.bin",
     "kernel_version": 1,
     "is_enabled": true, 
-    "is_primary": true,
-    "cpus": [ "0x0" ],
+    "is_primary": false,
+    "cpus": [ "0x10000" ],
     "allow_sw_communication": false,
     "use_disk_encryption": false,
     "requires_identity_mapping": false,
@@ -16,11 +16,11 @@
     },
     "build_command": "$(ROOT)/VMs/baremetal-helloworld/make.sh",
     "device_regions": {
-      "uart2": {
-        "description": "UART2 PL011",
-        "base-address": "0x00000000 0x1C0B0000",
-        "pages-count": 16,
-        "attributes": "0x3", 
+      "uart3": {
+        "description": "UART3 PL011",
+        "base-address": "0x00000000 0x1C0C0000",
+        "pages-count": 1,
+        "attributes": "0x3",
         "interrupts": "40 0x0"
       }
     }

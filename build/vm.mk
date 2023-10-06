@@ -1,12 +1,37 @@
-include common.mk
-
 $(OUT_PATH):
 	mkdir -p $@
 
 BR2_PACKAGE_DTC 			?= y
 BR2_PACKAGE_DTC_PROGRAMS	?= y
 
-include toolchain.mk
+PYTHON3 := python3
+
+LINUX_PATH                  ?= $(ROOT)/linux
+AARCH64_CROSS_COMPILE	?= aarch64-linux-gnu-
+
+################################################################################
+# Buildroot
+################################################################################
+
+buildroot-sub:
+	@mkdir -p ../out-br
+	(cd .. && $(PYTHON3) build/br-ext/scripts/make_def_config.py \
+		--br buildroot --out out-br \
+		--top-dir "$(ROOT)" \
+		--br-defconfig build/br-ext/configs/generic \
+		$(DEFCONFIG_GDBSERVER) \
+		$(DEFCONFIG_DOCKER) \
+		--make-cmd $(MAKE))
+
+	$(MAKE) $(br-make-flags) -C ../out-br all
+
+.PHONY: buildroot-clean
+buildroot-clean:
+	@test ! -d $(ROOT)/out-br || $(MAKE) -C $(ROOT)/out-br clean
+
+.PHONY: buildroot-cleaner
+buildroot-cleaner:
+	@rm -rf $(ROOT)/out-br
 
 ################################################################################
 # Linux Kernel
@@ -27,6 +52,33 @@ LINUX_DEFCONFIG_COMMON_ARCH := arm64
 ifeq ($(FASTER_BOOT), 1)
 KCONF_FASTPATCH = $(CURDIR)/kconfigs/fastpatch.conf
 endif
+
+LINUX_COMMON_FLAGS ?= LOCALVERSION= CROSS_COMPILE=$(AARCH64_CROSS_COMPILE)
+
+.PHONY: linux-common
+linux-common: linux-defconfig
+	echo '-ssp' > $(LINUX_PATH)/.scmversion
+	$(MAKE) -C $(LINUX_PATH) $(LINUX_COMMON_FLAGS)
+
+$(LINUX_PATH)/.config: $(LINUX_DEFCONFIG_COMMON_FILES)
+	cd $(LINUX_PATH) && \
+		ARCH=$(LINUX_DEFCONFIG_COMMON_ARCH) \
+		scripts/kconfig/merge_config.sh $(LINUX_DEFCONFIG_COMMON_FILES) \
+			$(LINUX_DEFCONFIG_BENCH)
+
+.PHONY: linux-defconfig-clean-common
+linux-defconfig-clean-common:
+	rm -f $(LINUX_PATH)/.config
+
+# LINUX_CLEAN_COMMON_FLAGS should be defined in specific makefiles
+.PHONY: linux-clean-common
+linux-clean-common: linux-defconfig-clean
+	$(MAKE) -C $(LINUX_PATH) $(LINUX_CLEAN_COMMON_FLAGS) clean
+
+# LINUX_CLEANER_COMMON_FLAGS should be defined in specific makefiles
+.PHONY: linux-cleaner-common
+linux-cleaner-common: linux-defconfig-clean
+	$(MAKE) -C $(LINUX_PATH) $(LINUX_CLEANER_COMMON_FLAGS) distclean
 
 LINUX_DEFCONFIG_COMMON_FILES := \
 		$(LINUX_PATH)/arch/arm64/configs/defconfig \
@@ -66,7 +118,7 @@ LINUX_CLEANER_COMMON_FLAGS += ARCH=arm64
 
 linux-cleaner: linux-cleaner-common
 
-linux-vm: buildroot-sub
+linux-vm: linux buildroot-sub
 
 vms-rebuild: 
 	$(BUILD_SCRIPTS)/build_peregrine.py --rebuild --vms-only -configfile $(PLATFORM_CONFIG_FILE)

@@ -352,6 +352,7 @@ class Builder:
 
             # skip VM if not built
             if not os.path.exists(os.path.join(cpio_out_dir, f"{vm.vm_id}_{kernel_filename}")):
+                print(f"WARNING:kernel is missing for VM '{vm.name}'.")
                 continue
 
             # check if image can be dom0 and add add it to the device tree regardless

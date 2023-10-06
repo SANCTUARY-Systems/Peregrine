@@ -186,7 +186,7 @@ fvp-download:
 	wget -O $(TOOLCHAIN_PATH)/fvp.tgz https://developer.arm.com/-/media/Files/downloads/ecosystem-models/FVP_Base_RevC-2xAEMvA_11.15_18.tgz
 	@cd $(TOOLCHAIN_PATH); \
 	tar -xf fvp.tgz Base_RevC_AEMvA_pkg
-	rm $(TOOLCHAIN_PATH)/fvp.tgz
+	rm -rf $(TOOLCHAIN_PATH)/fvp.tgz
 
 target:
 	@echo 'INFO: target specific make target not used.'

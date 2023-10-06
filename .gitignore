@@ -1,5 +1,5 @@
 .settings/language.settings.xml
-toolchain/Base_RevC_AEMvA_pkg/
+toolchain/
 out/
 linux/
 out-br/
@@ -12,6 +12,7 @@ build/targets/*/uboot-configs/boot_cmds.img
 build/platform_manifest.dts
 build/uart*.log
 build/fvp.log
+aggregated_data.json
 **/__pycache__/
 **/*.pyc
 *.launch

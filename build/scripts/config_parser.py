@@ -252,14 +252,13 @@ class VM:
         if vm.is_enabled:
             if vm.is_primary:
                 vm.vm_id = "vm1"
-                vm_count += 1
                 found_primary = True
             else:
                 if vm.requires_identity_mapping:
                     print("ERROR: Only the primary VM can have identity mapping.")
                     sys.exit(1)
                 vm_count += 1
-                vm.vm_id = "vm" + str(vm_count if found_primary else vm_count + 1)
+                vm.vm_id = "vm" + str(vm_count + 1)
 
             vm.populate_fields()
 

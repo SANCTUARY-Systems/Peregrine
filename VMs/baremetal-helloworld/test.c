@@ -8,8 +8,8 @@ extern void uart_init(volatile void *);
 void printc_uart(const char c) {
 	// *UART0DR = (unsigned int)(c);
 	// *UART1DR = (unsigned int)(c);
-	*UART2DR = (unsigned int)(c);
-	// *UART3DR = (unsigned int)(c);
+	// *UART2DR = (unsigned int)(c);
+	*UART3DR = (unsigned int)(c);
 }
 
 
