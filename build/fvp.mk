@@ -1,11 +1,12 @@
-include toolchain.mk
-
 ROOT ?= $(shell pwd)/..
 
-MAKEFLAGS += -j12
+MAKEFLAGS 				+= -j12
 BUILD_SCRIPTS 			?= $(ROOT)/build/scripts
 TF_A_PATH				?= $(ROOT)/trusted-firmware-a
 TOOLCHAIN_PATH  		?= $(ROOT)/toolchains
+CLANG_PATH				?= $(ROOT)/peregrine/prebuilts/linux-x64/clang/bin/clang
+
+AARCH64_CROSS_COMPILE	?= aarch64-linux-gnu-
 
 ################################################################################
 # Compile Flags
@@ -29,6 +30,8 @@ else
 	TF_A_DBG_SYMBOLS 	?= 0
 	TF_A_BUILD 			?= release
 endif
+
+CCACHE ?= $(shell which ccache) # Don't remove this comment (space is needed)
 
 ################################################################################
 # Paths to Folders and Binaries
@@ -105,9 +108,6 @@ include toolchain.mk
 # ARM Trusted Firmware
 ################################################################################
 
-TF_A_EXPORTS ?= \
-	CROSS_COMPILE="$(CCACHE)$(AARCH64_CROSS_COMPILE)"
-
 TF_A_FLAGS_ADD += BL33_START_ADDR=$(UBOOT_KERNEL_START_ADDR) BL33_EXTRA1_START_ADDR=$(UBOOT_CMD_START_ADDR)
 
 ifeq ($(USE_BOOTLOADER_AS_BL33),y)
@@ -137,7 +137,7 @@ else
 endif
 
 arm-tf: arm-tf-clean
-	$(TF_A_EXPORTS) $(MAKE) -C $(TF_A_PATH) $(TF_A_FLAGS_VM) $(TF_A_FLAGS_ADD) DBG_SYMBOLS=$(TF_A_DBG_SYMBOLS) all fip
+	$(TF_A_EXPORTS) $(MAKE) -C $(TF_A_PATH) CC=$(CLANG_PATH) CFLAGS="-Wno-gnu-variable-sized-type-not-at-end" $(TF_A_FLAGS_VM) $(TF_A_FLAGS_ADD) DBG_SYMBOLS=$(TF_A_DBG_SYMBOLS) all fip
 
 arm-tf-clean:
 	$(TF_A_EXPORTS) $(MAKE) -C $(TF_A_PATH) clean
