@@ -49,13 +49,8 @@ PLATFORM_CONFIG_FILE = $(TARGET_DIR)/fvp.json
 ### Misc
 PLATFORM_SUB_FLAVOR = v8a
 
-ifeq ($(PLATFORM_SUB_FLAVOR),v8a)
-	FVP_PATH	?= $(TOOLCHAIN_PATH)/Base_RevC_AEMv8A_pkg
-	FVP_NAME    ?= FVP_Base_RevC-2xAEMv8A
-else
-	FVP_NAME    ?= FVP_Base_RevC-2xAEMvA
-	FVP_PATH	?= $(TOOLCHAIN_PATH)/Base_RevC_AEMvA_pkg
-endif
+FVP_NAME    ?= FVP_Base_RevC-2xAEMvA
+FVP_PATH	?= $(TOOLCHAIN_PATH)/Base_RevC_AEMvA_pkg
 
 ifeq ($(PLATFORM_SUB_FLAVOR),fvp)
 	FVP_FLAGS 	+= --block-device=$(BOOT_IMG)
@@ -187,7 +182,7 @@ uboot-clean:
 
 fvp-download:
 	@echo 'INFO: Downloading FVP.'
-	wget -O $(TOOLCHAIN_PATH)/fvp.tgz https://developer.arm.com/-/media/Files/downloads/ecosystem-models/FVP_Base_RevC-2xAEMvA_11.23_9_Linux64.tgz
+	wget -O $(TOOLCHAIN_PATH)/fvp.tgz https://developer.arm.com/-/media/Files/downloads/ecosystem-models/FVP_Base_RevC-2xAEMvA_11.15_18.tgz
 	@cd $(TOOLCHAIN_PATH); \
 	tar -xf fvp.tgz Base_RevC_AEMvA_pkg
 	rm $(TOOLCHAIN_PATH)/fvp.tgz
