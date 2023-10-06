@@ -6,6 +6,8 @@ TF_A_PATH				?= $(ROOT)/trusted-firmware-a
 TOOLCHAIN_PATH  		?= $(ROOT)/toolchain
 CLANG_PATH				?= $(ROOT)/peregrine/prebuilts/linux-x64/clang/bin/clang
 
+SHELL					= /bin/bash
+
 AARCH64_CROSS_COMPILE	?= aarch64-linux-gnu-
 
 ################################################################################
@@ -72,17 +74,17 @@ endif
 ################################################################################
 
 vms:
-	$(MAKE) -f vm_wo_optee.mk vms BUILD_SCRIPTS=$(BUILD_SCRIPTS) PLATFORM_CONFIG_FILE=$(PLATFORM_CONFIG_FILE)
+	$(MAKE) -f vm.mk vms BUILD_SCRIPTS=$(BUILD_SCRIPTS) PLATFORM_CONFIG_FILE=$(PLATFORM_CONFIG_FILE)
 
 vms-rebuild:
-	$(MAKE) -f vm_wo_optee.mk vms-rebuild BUILD_SCRIPTS=$(BUILD_SCRIPTS) PLATFORM_CONFIG_FILE=$(PLATFORM_CONFIG_FILE)
+	$(MAKE) -f vm.mk vms-rebuild BUILD_SCRIPTS=$(BUILD_SCRIPTS) PLATFORM_CONFIG_FILE=$(PLATFORM_CONFIG_FILE)
 
 peregrine:
 	$(BUILD_SCRIPTS)/build_peregrine.py --hypervisor-only -configfile $(PLATFORM_CONFIG_FILE)
 
 	
 linux-clean:
-	$(MAKE) -f vm_wo_optee.mk linux-clean
+	$(MAKE) -f vm.mk linux-clean
 
 clean: 
 	$(BUILD_SCRIPTS)/build_peregrine.py -wrap clean-internal -configfile $(PLATFORM_CONFIG_FILE)
@@ -166,8 +168,7 @@ uboot:
 	ARCH=arm64 CROSS_COMPILE="$(CCACHE)$(AARCH64_CROSS_COMPILE)" $(MAKE) -C $(ROOT)/u-boot DEVICE_TREE=$(UBOOT_DTS)
 
 	# Create cmds to boot Peregrine from u-boot
-	# echo -e 'smhload ../../u-boot/cot_peregrine/peregrine.fit $(UBOOT_FIT_START_ADDR)\nsmhload ../../$(BOOT_IMG_VM_REL) $(VMS_START_ADDR)\nbootm $(UBOOT_FIT_START_ADDR)' > $(TARGET_DIR)/uboot-configs/boot_cmds
-	echo -e 'load hostfs - $(UBOOT_FIT_START_ADDR) ../../u-boot/cot_peregrine/peregrine.fit\nload hostfs - $(VMS_START_ADDR) ../../$(BOOT_IMG_VM_REL)\nbootm $(UBOOT_FIT_START_ADDR)' > $(TARGET_DIR)/uboot-configs/boot_cmds
+	@echo -e 'load hostfs - $(UBOOT_FIT_START_ADDR) ../../u-boot/cot_peregrine/peregrine.fit\nload hostfs - $(VMS_START_ADDR) ../../$(BOOT_IMG_VM_REL)\nbootm $(UBOOT_FIT_START_ADDR)' > $(TARGET_DIR)/uboot-configs/boot_cmds
 	$(ROOT)/u-boot/tools/mkimage -T script -C none -n 'Boot Commands' -d $(TARGET_DIR)/uboot-configs/boot_cmds $(TARGET_DIR)/uboot-configs/boot_cmds.img
 	
 uboot-clean:
