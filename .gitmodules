@@ -7,3 +7,6 @@
 [submodule "peregrine"]
 	path = peregrine
 	url = https://sgit.trust.informatik.tu-darmstadt.de:13196/sanctuary/peregrine/peregrine-hypervisor.git
+[submodule "linux"]
+	path = linux
+	url = https://github.com/torvalds/linux.git
