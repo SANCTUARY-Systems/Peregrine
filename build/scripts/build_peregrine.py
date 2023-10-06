@@ -687,9 +687,9 @@ class Builder:
         """Builds tools needed for the specific in case they have not been built"""
 
         # test if FVP executable is present
-        tools_path = os.path.join(cls.BUILD_ROOT, "toolchains")
+        tools_path = os.path.join(cls.BUILD_ROOT, "toolchain")
 
-        fvp_path = os.path.join(tools_path, "Base_RevC_AEMv8A_pkg")
+        fvp_path = os.path.join(tools_path, "Base_RevC_AEMvA_pkg")
 
         if not os.path.exists(fvp_path):
             # let's downlad and unpack the gzipped tarball
