@@ -9,7 +9,7 @@
     "fdt_path": "$(ROOT)/build/targets/fvp/vm-dts/secondary_vm_fdt.dts",
     "fdt_version": 1,
     "build_env": "BR2_ROOTFS_OVERLAY=\"$(ROOT)/build/br-ext/fvp-overlay/\"",
-    "is_enabled": false, 
+    "is_enabled": true, 
     "is_primary": false,
     "vcpu_count": 2,
     "cpus": [ "0x200", "0x300" ],

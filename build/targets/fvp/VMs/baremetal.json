@@ -4,7 +4,7 @@
     "name": "Baremetal",
     "kernel_path": "$(ROOT)/VMs/baremetal-helloworld/test.bin",
     "kernel_version": 1,
-    "is_enabled": true, 
+    "is_enabled": false, 
     "is_primary": false,
     "cpus": [ "0x10000" ],
     "allow_sw_communication": false,
