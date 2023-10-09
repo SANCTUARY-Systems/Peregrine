@@ -1,12 +1,12 @@
 [submodule "uboot"]
 	path = u-boot
-	url = https://sgit.trust.informatik.tu-darmstadt.de:13196/sanctuary/peregrine/uboot.git
+	url = https://github.com/SANCTUARY-Systems/uboot.git
 [submodule "trusted-firmware-a"]
 	path = trusted-firmware-a
-	url = https://sgit.trust.informatik.tu-darmstadt.de:13196/sanctuary/peregrine/trusted-firmware-a.git
+	url = https://github.com/SANCTUARY-Systems/Trusted-Firmware-A.git
 [submodule "peregrine"]
 	path = peregrine
-	url = https://sgit.trust.informatik.tu-darmstadt.de:13196/sanctuary/peregrine/peregrine-hypervisor.git
+	url = https://github.com/SANCTUARY-Systems/Peregrine-Hypervisor.git
 [submodule "linux"]
 	path = linux
 	url = https://github.com/torvalds/linux.git
