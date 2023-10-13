@@ -29,6 +29,8 @@ Running
 
 `make run-only`
 
+# Licensing
+This is a GPLv2 open-source release for evaluation and research purposes. If you need a commercial license and support, please contact [info@sanctuary.dev](mailto:info@sanctuary.dev).
 
 # A detailled README will follow.
 
